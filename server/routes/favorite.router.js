@@ -13,10 +13,10 @@ router.post('/', (req, res) => {
   let newfavorite = req.body;
   console.log('newFavorite', newfavorite);
 
-  let querText =
+  let queryText =
               `INSERT INTO "favorites" ("img_link")
               VALUES ($1);`;
-  pool.query(querText, [newfavorite])
+  pool.query(queryText, [newfavorite])
     .then(results => {
       res.sendStatus(200);
     })
