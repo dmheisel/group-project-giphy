@@ -36,8 +36,12 @@ class Search extends Component {
         this.setState({
             search: event.target.value
         })
-    }
+		}
+	
 
+	componentDidMount() {
+		this.props.dispatch({type: 'FETCH_FAVS'})
+	}
 
 	newSearch = event => {
 		event.preventDefault();

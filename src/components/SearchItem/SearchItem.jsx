@@ -23,11 +23,33 @@ const styles = theme => ({
 	}
 });
 class SearchItem extends Component {
-	handleFavoriteClick = event => {
-		this.props.dispatch({
-			type: 'POST_FAV',
-			payload: this.props.gifObject.images.fixed_height.url
+	state = {
+		inFavs: false
+	};
+	componentDidMount() {
+		this.setState({
+			inFavs:
+				this.props.favoritesList.findIndex(
+					gif => gif.img_link === this.props.gifObject.images.fixed_height.url
+				) >= 0
+					? true
+					: false
 		});
+	}
+
+	handleFavoriteClick = event => {
+		this.setState({ inFavs: !this.state.inFavs });
+		if (this.state.inFavs === false) {
+			this.props.dispatch({
+				type: 'POST_FAV',
+				payload: this.props.gifObject.images.fixed_height.url
+			});
+		} else {
+			id = this.props.favoritesList.this.props.dispatch({
+				type: 'REMOVE_FAV',
+				payload: this.props.gifObject.images.fixed_height.url
+			});
+		}
 	};
 
 	render() {
@@ -38,11 +60,18 @@ class SearchItem extends Component {
 					src={this.props.gifObject.images.fixed_height.url}
 					alt='gif item'
 				/>
-				<GridListTileBar className={classes.titleBar}
+				<GridListTileBar
+					className={classes.titleBar}
 					actionIcon={
-						<IconButton onClick={this.handleFavoriteClick}>
-                            <StarBorderIcon className={classes.icon}/>
-						</IconButton>
+						this.state.inFavs ? (
+							<IconButton onClick={this.handleFavoriteClick}>
+								<StarIcon className={classes.icon} />
+							</IconButton>
+						) : (
+							<IconButton onClick={this.handleFavoriteClick}>
+								<StarBorderIcon className={classes.icon} />
+							</IconButton>
+						)
 					}
 				/>
 			</div>
@@ -51,6 +80,6 @@ class SearchItem extends Component {
 }
 
 const mapStateToProps = reduxStore => ({
-    favoritesList: reduxStore.favoriteReducer
-})
-export default connect()(withStyles(styles)(SearchItem));
+	favoritesList: reduxStore.favoriteReducer
+});
+export default connect(mapStateToProps)(withStyles(styles)(SearchItem));
