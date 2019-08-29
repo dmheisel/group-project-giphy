@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Button from "@material-ui/core/Button";
 import StarIcon from '@material-ui/icons/Star';
+import SearchItem from '../SearchItem/SearchItem';
+
+
 class Search extends Component {
     state = {
         search: ''
@@ -29,7 +32,8 @@ class Search extends Component {
     render() {
        
            let images = this.props.reduxStore.searchReducer.map((object, index) => {
-               return (<div key={index}>  <img src = {object.images.fixed_height.url}/> <button>FAV</button></div> )
+               return ( <SearchItem key={index} gifObject={object} /> )
+            //    <div key={index}>  <img src = {object.images.fixed_height.url}/> <button>FAV</button></div> )
             })
                 
 
