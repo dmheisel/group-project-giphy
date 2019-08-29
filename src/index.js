@@ -18,9 +18,10 @@ function* rootSaga() {
 //fetch route
 function* fetchSearch(action) {
   try {
-    axios.post('/')
+    let response = yield axios.post('/search/', action.payload)
+    yield put({type: 'SET_SEARCH_RESULTS', payload: response.data})
   } catch (error) {
-
+    console.log('error on GET route from server: ', error)
   }
 }
 
