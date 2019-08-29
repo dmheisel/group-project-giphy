@@ -64,8 +64,8 @@ class Search extends Component {
 		const { classes } = this.props;
 		return (
 			<div>
-				<h1>Giphy Search!</h1>{' '}
-				<Button variant='contained' color='primary'>
+				<h1>Giphy Search!</h1>
+                <Button variant='contained' color='primary' onClick={this.toFavorites}>
 					Favorites
 					<StarIcon />
 				</Button>
