@@ -65,7 +65,7 @@ class Search extends Component {
 		return (
 			<div>
 				<h1>Giphy Search!</h1>
-				<Button variant='contained' color='primary'>
+                <Button variant='contained' color='primary' onClick={this.toFavorites}>
 					Favorites
 					<StarIcon />
 				</Button>
