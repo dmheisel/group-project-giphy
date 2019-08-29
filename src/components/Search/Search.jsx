@@ -26,7 +26,7 @@ class Search extends Component {
 	state = {
 		search: ''
     };
-    
+
     toFavorites = () => {
         this.props.history.push('/favorites')
     }
@@ -64,7 +64,7 @@ class Search extends Component {
 		const { classes } = this.props;
 		return (
 			<div>
-				<h1>Giphy Search!</h1>{' '}
+				<h1>Giphy Search!</h1>
 				<Button variant='contained' color='primary'>
 					Favorites
 					<StarIcon />
