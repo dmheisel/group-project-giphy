@@ -14,6 +14,7 @@ import { takeEvery, put } from 'redux-saga/effects'
 const sagaMiddleware = createSagaMiddleware()
 function* rootSaga() {
   yield takeEvery('FETCH_SEARCH', fetchSearch)
+  yield takeEvery('FETCH_FAVS', fetchFavorites)
 }
 
 //fetch route
@@ -27,6 +28,15 @@ function* fetchSearch(action) {
   }
 }
 
+function* fetchFavorites(action) {
+  try {
+    let response = yield axios.get('/api/favorite')
+    yield console.log(response);
+    yield put({type: 'SET_FAVS', payload: response.data}) 
+  } catch (error) {
+    console.log('error with GET on fetchFavorites', error);
+  }
+}
 
 //REDUX REDUCERS
 const searchReducer = (state = [], action) => {
@@ -38,9 +48,19 @@ const searchReducer = (state = [], action) => {
   }
 }
 
+//FAVORITE REDUCER
+const favoriteReducer = (state = [], action) => {
+  switch (action.type){
+    case 'SET_FAVS':
+      return action.payload;
+    default: 
+      return state; 
+  }
+}
+
 
 const store = createStore(
-  combineReducers({searchReducer}),
+  combineReducers({searchReducer, favoriteReducer}),
   applyMiddleware(sagaMiddleware, logger)
 )
 sagaMiddleware.run(rootSaga)
