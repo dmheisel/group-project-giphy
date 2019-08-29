@@ -22,15 +22,16 @@ returnToSearch = () => {
         return (
           <div>
             <Button
-    
+
               variant="contained"
               color="primary"
               onClick={this.returnToSearch}
             >
               Search<HomeTwoToneIcon />
             </Button>
+            {images}
           </div>
-          
+        )
     }
 }
 
