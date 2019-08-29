@@ -45,7 +45,7 @@ class SearchItem extends Component {
 				payload: this.props.gifObject.images.fixed_height.url
 			});
 		} else {
-			id = this.props.favoritesList.this.props.dispatch({
+			this.props.dispatch({
 				type: 'REMOVE_FAV',
 				payload: this.props.gifObject.images.fixed_height.url
 			});
