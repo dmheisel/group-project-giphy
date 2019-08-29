@@ -13,8 +13,9 @@ import { takeEvery, put } from 'redux-saga/effects'
 //SAGA stuff
 const sagaMiddleware = createSagaMiddleware()
 function* rootSaga() {
-  yield takeEvery('FETCH_SEARCH', fetchSearch)
-  yield takeEvery('FETCH_FAVS', fetchFavorites)
+  yield takeEvery('FETCH_SEARCH', fetchSearch);
+  yield takeEvery('FETCH_FAVS', fetchFavorites);
+  yield takeEvery('POST_FAV', postFavorite);
 }
 
 //fetch route
@@ -36,6 +37,22 @@ function* fetchFavorites(action) {
   } catch (error) {
     console.log('error with GET on fetchFavorites', error);
   }
+}
+
+//post favorite
+function* postFavorite(action) {
+  try {
+    console.log('in postFavorite', action.payload);
+    yield axios.post('/api/favorite', action.payload)
+    yield put({
+      type: 'FETCH_FAVS'
+    })
+    
+  } catch(error) {
+    console.log('error in POST fav', error);
+    
+  }
+
 }
 
 //REDUX REDUCERS
