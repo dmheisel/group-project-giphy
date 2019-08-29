@@ -10,6 +10,10 @@ class Search extends Component {
         search: ''
     }
 
+    toFavorites = () => {
+        this.props.history.push('/favorites')
+    }
+
     handleChange = (event) => {
         console.log('typing in input!');
         this.setState({
@@ -40,7 +44,7 @@ class Search extends Component {
         return (
           <div>
             <h1>Giphy Search!</h1>{" "}
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick = {this.toFavorites}>
               Favorites<StarIcon />
             </Button>
             <form onSubmit={this.newSearch}>
