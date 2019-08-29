@@ -11,6 +11,7 @@ import createSagaMiddleware from 'redux-saga'
 import { takeEvery, put } from 'redux-saga/effects'
 
 //SAGA stuff
+const sagaMiddleware = createSagaMiddleware()
 function* rootSaga() {
   yield takeEvery('FETCH_SEARCH', fetchSearch)
 }
@@ -20,7 +21,7 @@ function* fetchSearch(action) {
   try {
     let response = yield axios.post('/api/search/', action.payload)
     yield console.log(response.data)
-    yield put({type: 'SET_SEARCH_RESULTS', payload: response.data})
+    yield put({type: 'SET_SEARCH_RESULTS', payload: response.data.data})
   } catch (error) {
     console.log('error on GET route from server: ', error)
   }
@@ -39,7 +40,7 @@ const searchReducer = (state = [], action) => {
 
 
 const store = createStore(
-  combineReducers({}),
+  combineReducers({searchReducer}),
   applyMiddleware(sagaMiddleware, logger)
 )
 sagaMiddleware.run(rootSaga)

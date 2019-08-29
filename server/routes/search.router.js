@@ -11,7 +11,7 @@ router.post('/', (req, res) => {
     .get(url)
     .then(result => {
       console.log(`successful GET from giphy API`)
-      console.log(result)
+      console.log('response from giphy: ', result.data)
       res.send(result.data)
     })
     .catch(error => {
