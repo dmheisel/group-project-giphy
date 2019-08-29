@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Favorites extends Component {
     returnToSearch = () => {
@@ -13,4 +14,10 @@ class Favorites extends Component {
     }
 }
 
-export default Favorites;
+const mapStateToProps = (reduxStore) => {
+    return {
+         reduxStore
+    }
+}
+
+export default connect(mapStateToProps)(Favorites);

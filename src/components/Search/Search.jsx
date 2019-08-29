@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
 class Search extends Component {
     state = {
@@ -34,4 +35,10 @@ class Search extends Component {
     }
 }
 
-export default Search;
+const mapStateToProps = (reduxStore) => {
+    return {
+        reduxStore
+    }
+}
+
+export default connect(mapStateToProps)(Search);
