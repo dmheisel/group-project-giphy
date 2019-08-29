@@ -7,13 +7,14 @@ class App extends Component {
 
   render() {
     return (
+
       <Router>
         <div>
           <Route path='/' component={Search}/>
           <Route path='/favorites' component={Favorites}/>
         </div>
       </Router>
-    
+  
     );
   }
   
