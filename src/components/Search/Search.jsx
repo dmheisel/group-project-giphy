@@ -15,12 +15,14 @@ class Search extends Component {
 
     newSearch = (event) => {
         event.preventDefault();
-        console.log('clicked on Submit!!', this.state.search);
+        console.log('clicked on Submit!!', this.state);
         this.props.dispatch({
             type: 'FETCH_SEARCH',
-            payload: this.state.search
+            payload: this.state
         })
-        
+        this.setState({
+            search: ''
+        })
     }
 
     render() {
