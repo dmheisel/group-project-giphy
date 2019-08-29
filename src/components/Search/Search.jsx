@@ -26,7 +26,7 @@ class Search extends Component {
 	state = {
 		search: ''
     };
-    
+
     toFavorites = () => {
         this.props.history.push('/favorites')
     }

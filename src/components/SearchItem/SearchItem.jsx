@@ -12,6 +12,14 @@ const styles = theme => ({
 		height: '100%',
 		width: 'auto',
 		objectFit: 'cover'
+	},
+	titleBar: {
+		background:
+			'linear-gradient(to top, rgba(0,0,0,0.7) 0%, ' +
+			'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
+	},
+	icon: {
+		color: 'rgb(255, 235, 59)'
 	}
 });
 class SearchItem extends Component {
@@ -30,10 +38,10 @@ class SearchItem extends Component {
 					src={this.props.gifObject.images.fixed_height.url}
 					alt='gif item'
 				/>
-				<GridListTileBar
+				<GridListTileBar className={classes.titleBar}
 					actionIcon={
 						<IconButton onClick={this.handleFavoriteClick}>
-							<StarBorderIcon />
+                            <StarBorderIcon className={classes.icon}/>
 						</IconButton>
 					}
 				/>
@@ -42,4 +50,7 @@ class SearchItem extends Component {
 	}
 }
 
+const mapStateToProps = reduxStore => ({
+    favoritesList: reduxStore.favoriteReducer
+})
 export default connect()(withStyles(styles)(SearchItem));
