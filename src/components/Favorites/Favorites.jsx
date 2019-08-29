@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import Button from "@material-ui/core/Button";
+import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
 class Favorites extends Component {
 
 componentDidMount(){
@@ -19,11 +20,17 @@ returnToSearch = () => {
             return (<div key={index}>  <img src={object.img_link} /> </div>)
         })
         return (
-            <div>
-                <button onClick={this.returnToSearch}>Search</button>
-                {images}
-            </div>
-        )
+          <div>
+            <Button
+    
+              variant="contained"
+              color="primary"
+              onClick={this.returnToSearch}
+            >
+              Search<HomeTwoToneIcon />
+            </Button>
+          </div>
+          
     }
 }
 
