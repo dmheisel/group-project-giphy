@@ -19,6 +19,7 @@ function* rootSaga() {
 function* fetchSearch(action) {
   try {
     let response = yield axios.post('/api/search/', action.payload)
+    yield console.log(response.data)
     yield put({type: 'SET_SEARCH_RESULTS', payload: response.data})
   } catch (error) {
     console.log('error on GET route from server: ', error)
@@ -27,6 +28,14 @@ function* fetchSearch(action) {
 
 
 //REDUX REDUCERS
+const searchReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_SEARCH_RESULTS':
+      return action.payload;
+    default:
+      return state;
+  }
+}
 
 
 const store = createStore(
