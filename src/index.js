@@ -43,7 +43,7 @@ function* fetchFavorites(action) {
 function* postFavorite(action) {
   try {
     console.log('in postFavorite', action.payload);
-    yield axios.post('/api/favorite', action.payload)
+    yield axios.post('/api/favorite', {url: action.payload})
     yield put({
       type: 'FETCH_FAVS'
     })

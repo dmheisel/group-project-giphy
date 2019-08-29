@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
   let queryText =
               `INSERT INTO "favorites" ("img_link")
               VALUES ($1);`;
-  pool.query(queryText, [newfavorite])
+  pool.query(queryText, [newfavorite.url])
     .then(results => {
       res.sendStatus(200);
     })
