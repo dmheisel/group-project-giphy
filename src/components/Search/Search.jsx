@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
+
 class Search extends Component {
     state = {
         search: ''
@@ -26,20 +27,27 @@ class Search extends Component {
     }
 
     render() {
+       
+           let images = this.props.reduxStore.searchReducer.map((object, index) => {
+               return (<div key={index}>  <img src = {object.images.fixed_height.url}/> <button>FAV</button></div> )
+            })
+                
+
         return (
             <div>
                 <h1>Giphy Search!</h1>
+               
                 <form onSubmit={this.newSearch}>
                     <input type="text" value={this.state.search} onChange={this.handleChange} placeholder="enter search terms" />
                     <input type="submit" value="Search for gifs!" />
                 </form>
-                <div>
-                {/* spit search items here! */}
-                </div>
+                {images}
             </div>
         )
     }
 }
+
+
 
 const mapStateToProps = (reduxStore) => {
     return {
