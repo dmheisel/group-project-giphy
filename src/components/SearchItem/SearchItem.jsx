@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //material-ui imports
-import Fab from '@material-ui/core/Fab';
 import { withStyles } from '@material-ui/core/styles';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,6 +15,13 @@ const styles = theme => ({
 	}
 });
 class SearchItem extends Component {
+	handleFavoriteClick = event => {
+		this.props.dispatch({
+			type: 'POST_FAV',
+			payload: this.props.gifObject.images.fixed_height.url
+		});
+	};
+
 	render() {
 		const { classes } = this.props;
 		return (
@@ -24,11 +30,13 @@ class SearchItem extends Component {
 					src={this.props.gifObject.images.fixed_height.url}
 					alt='gif item'
 				/>
-				<Fab>
-					<IconButton>
-						<StarBorderIcon />
-					</IconButton>
-				</Fab>
+				<GridListTileBar
+					actionIcon={
+						<IconButton onClick={this.handleFavoriteClick}>
+							<StarBorderIcon />
+						</IconButton>
+					}
+				/>
 			</div>
 		);
 	}
