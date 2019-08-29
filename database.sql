@@ -11,4 +11,14 @@ CREATE TABLE "category" (
 
 -- Default categories. You may change them :)
 INSERT INTO "category" ("name")
-VALUES ('funny'), ('vega'), ('cartoon'), ('nsfw'), ('meme');
+VALUES ('funny'), ('polybius'), ('oregon'), ('goat'), ('burrito'), ('orca'), ('organs');
+
+
+CREATE TABLE "favorites" (
+    "id" SERIAL PRIMARY KEY,
+    "img_link" VARCHAR (700) NOT NULL,
+    "category_id" INT DEFAULT NULL
+);
+
+INSERT INTO "favorites" ("img_link")
+VALUES ('https://media.giphy.com/media/fWAlzdNOQZDJMq4wRG/giphy.gif'), ('https://media.giphy.com/media/8tWBtp5y6hdXG/giphy.gif');
