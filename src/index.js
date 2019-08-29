@@ -10,7 +10,22 @@ import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 import { takeEvery, put } from 'redux-saga/effects'
 
+//SAGA stuff
+function* rootSaga() {
+  yield takeEvery('FETCH_SEARCH', fetchSearch)
+}
 
+//fetch route
+function* fetchSearch(action) {
+  try {
+    axios.post('/')
+  } catch (error) {
+
+  }
+}
+
+
+//REDUX REDUCERS
 
 
 const store = createStore(
