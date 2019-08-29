@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-
-
+import Button from "@material-ui/core/Button";
+import StarIcon from '@material-ui/icons/Star';
 class Search extends Component {
     state = {
         search: ''
@@ -34,16 +34,23 @@ class Search extends Component {
                 
 
         return (
-            <div>
-                <h1>Giphy Search!</h1>
-               
-                <form onSubmit={this.newSearch}>
-                    <input type="text" value={this.state.search} onChange={this.handleChange} placeholder="enter search terms" />
-                    <input type="submit" value="Search for gifs!" />
-                </form>
-                {images}
-            </div>
-        )
+          <div>
+            <h1>Giphy Search!</h1>{" "}
+            <Button variant="contained" color="primary">
+              Favorites<StarIcon />
+            </Button>
+            <form onSubmit={this.newSearch}>
+              <input
+                type="text"
+                value={this.state.search}
+                onChange={this.handleChange}
+                placeholder="enter search terms"
+              />
+              <input type="submit" value="Search for gifs!" />
+            </form>
+            {images}
+          </div>
+        );
     }
 }
 
