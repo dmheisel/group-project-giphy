@@ -6,12 +6,13 @@ const router = express.Router();
 
 router.post('/', (req, res) => {
   let searchQuery = req.body;
-  let url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&q=${searchQuery}`;
+  console.log(searchQuery)
+  let url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.API_KEY}&q=${searchQuery.search}`;
   axios
     .get(url)
     .then(result => {
       console.log(`successful GET from giphy API`)
-      console.log('response from giphy: ', result.data)
+      // console.log('response from giphy: ', result.data)
       res.send(result.data)
     })
     .catch(error => {
