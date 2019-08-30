@@ -16,6 +16,7 @@ function* rootSaga() {
   yield takeEvery('FETCH_SEARCH', fetchSearch);
   yield takeEvery('FETCH_FAVS', fetchFavorites);
   yield takeEvery('POST_FAV', postFavorite);
+  yield takeEvery('SET_CAT', fetchCategory)
 }
 
 //fetch route
@@ -55,6 +56,19 @@ function* postFavorite(action) {
 
 }
 
+function* fetchCategory(action){
+  try{
+   let response = yield axios.get('/api/category')
+    yield console.log(response.data);
+    yield put({
+      type: 'SET_CATEGORY',
+      payload: response.data
+    })
+  }catch (err){
+      console.log(err);
+      
+  }
+}
 //REDUX REDUCERS
 const searchReducer = (state = [], action) => {
   switch (action.type) {
@@ -75,9 +89,17 @@ const favoriteReducer = (state = [], action) => {
   }
 }
 
+const categoryReducer = ( state = [], action) => {
+  switch (action.type){
+    case 'SET_CATEGORY':
+      return action.payload;
+    default:
+      return state; 
+  }
+}
 
 const store = createStore(
-  combineReducers({searchReducer, favoriteReducer}),
+  combineReducers({searchReducer, favoriteReducer, categoryReducer}),
   applyMiddleware(sagaMiddleware, logger)
 )
 sagaMiddleware.run(rootSaga)

@@ -6,6 +6,7 @@ class Favorites extends Component {
 
 componentDidMount(){
     this.getFavorites()
+    this.props.dispatch({type: 'SET_CAT'})
 }
 
 getFavorites = () => {
