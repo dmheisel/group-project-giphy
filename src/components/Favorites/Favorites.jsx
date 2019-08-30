@@ -14,6 +14,7 @@ class Favorites extends Component {
 		this.props.dispatch({ type: 'FETCH_FAVS' });
 	};
 
+
 	returnToSearch = () => {
 		this.props.history.push('/');
 	};
@@ -29,6 +30,7 @@ class Favorites extends Component {
 					})}
 			</div>
 		);
+
 
 		//returns a div with a list for each category and their respective gifs
 		let categoryLists = this.props.categories.map((category, index) => {
