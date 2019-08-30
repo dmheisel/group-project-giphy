@@ -21,7 +21,7 @@ returnToSearch = () => {
 }
     render() {
         let images = this.props.reduxStore.favoriteReducer.map((object, index) => {
-          return (<FavoritesItem gifObject={object} key={index} />)
+          return (<FavoritesItem gifObject={object} key={index} category={object.category_id} />)
         })
         return (
           <div>
