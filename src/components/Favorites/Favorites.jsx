@@ -14,7 +14,6 @@ class Favorites extends Component {
 		this.props.dispatch({ type: 'FETCH_FAVS' });
 	};
 
-
 	returnToSearch = () => {
 		this.props.history.push('/');
 	};
@@ -31,26 +30,31 @@ class Favorites extends Component {
 			</div>
 		);
 
-
 		//returns a div with a list for each category and their respective gifs
 		let categoryLists = this.props.categories.map((category, index) => {
 			//map over categories
-			let categoryGifs = this.props.favorites
-				//filter favorites list to only those with matching category id
-				.filter(gif => gif.category_id === category.id)
-				.map(gif => {
-					//maps over each gif in category and returns a favorites item comp for each
-					return <FavoritesItem gifObject={gif} key={gif.id} />;
-				});
-			//return each this for each category
-			return (
-				<div key={index}>
-					<h1>{category.name.toUpperCase()}</h1>
-					{categoryGifs}
-				</div>
-			);
+			if (
+				this.props.favorites.filter(gif => gif.category_id === category.id)
+					.length === 0
+			) {
+				return null; //if there are no gifs in this category, return null and move on
+      } else {
+        //if there are gifs in category, do this
+				let categoryGifs = this.props.favorites
+					.filter(gif => gif.category_id === category.id)
+					.map(gif => {
+						//filter to get only matching categories, maps over each gif in category and returns a favorites item component for each
+						return <FavoritesItem gifObject={gif} key={gif.id} />;
+					});
+        return (
+          //returns a div with the category name and the gifs in the category
+					<div key={index}>
+						<h1>{category.name.toUpperCase()}</h1>
+						{categoryGifs}
+					</div>
+				);
+			}
 		});
-
 		return (
 			<div>
 				<Button
