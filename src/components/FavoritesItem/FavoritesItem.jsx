@@ -11,15 +11,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 class FavoritesItem extends Component {
 
 
-    setCategory = () => {
-        console.log('clicked on select');
-        
-    }
+    
 
     handleChange = (event) => {
-
+        
         console.log(`changing select on gif id: ${this.props.gifObject.id} to category: ${event.target.value}` );
-
+        //target the id and category_id from the favorites database
         this.props.dispatch({
             type: 'PUT_CAT',
             payload: {gifID: this.props.gifObject.id, categoryID: event.target.value}
@@ -30,6 +27,7 @@ class FavoritesItem extends Component {
     }
 
     render() {
+        //mapping categories from category db to selectors
         let categories = this.props.reduxStore.categoryReducer.map((category) => {
             return (<MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>)
         })
