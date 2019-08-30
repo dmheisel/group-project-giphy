@@ -10,6 +10,7 @@ import Input from '@material-ui/core/Input';
 
 class FavoritesItem extends Component {
 
+
     setCategory = () => {
         console.log('clicked on select');
         
