@@ -22,7 +22,7 @@ function* rootSaga() {
 //remove route
 function* removeFav(action) {
   try {
-    yield axios.delete(`/${action.payload}`)
+    yield axios.delete(`/api/favorite/${action.payload}`)
     yield console.log('succes in DELETE route');
 
     yield put({type: 'FETCH_FAVS'})
