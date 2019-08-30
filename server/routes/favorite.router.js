@@ -11,10 +11,10 @@ router.get('/', (req, res) => {
     console.log('Error', error)
     res.sendStatus(500);
   });
-  
+
 });
 
-// add a new favorite 
+// add a new favorite
 router.post('/', (req, res) => {
   let newfavorite = req.body;
   console.log('newFavorite', newfavorite);
@@ -30,8 +30,8 @@ router.post('/', (req, res) => {
       console.log('error adding newfavorite', error);
       res.sendStatus(500);
     })
-  
-  
+
+
 });
 
 // update given favorite with a category id
@@ -41,8 +41,17 @@ router.put('/:favId', (req, res) => {
 });
 
 // delete a favorite
-router.delete('/', (req, res) => {
-  res.sendStatus(200);
+router.delete('/:id', (req, res) => {
+  let id = req.params.id
+  let queryText = `DELETE FROM "favorites" WHERE "id" = $1`
+  pool.query(queryText, [id])
+    .then(results => {
+    res.sendStatus(204)
+    })
+    .catch(error => {
+      console.log('error removing favorite', error);
+      res.sendStatus(500)
+    })
 });
 
 module.exports = router;

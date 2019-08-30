@@ -13,11 +13,26 @@ import { takeEvery, put } from 'redux-saga/effects'
 //SAGA stuff
 const sagaMiddleware = createSagaMiddleware()
 function* rootSaga() {
+  yield takeEvery('REMOVE_FAV', removeFav)
   yield takeEvery('FETCH_SEARCH', fetchSearch);
   yield takeEvery('FETCH_FAVS', fetchFavorites);
   yield takeEvery('POST_FAV', postFavorite);
   yield takeEvery('SET_CAT', fetchCategory)
 }
+
+//remove route
+function* removeFav(action) {
+  try {
+    yield axios.delete(`/api/favorite/${action.payload}`)
+    yield console.log('succes in DELETE route');
+
+    yield put({type: 'FETCH_FAVS'})
+  } catch (error) {
+    yield console.log('error in DELETE route:', error);
+
+  }
+}
+
 
 //fetch route
 function* fetchSearch(action) {
@@ -26,7 +41,7 @@ function* fetchSearch(action) {
     yield console.log(response.data)
     yield put({type: 'SET_SEARCH_RESULTS', payload: response.data.data})
   } catch (error) {
-    console.log('error on GET route from server: ', error)
+    yield console.log('error on GET route from server: ', error)
   }
 }
 
@@ -34,7 +49,7 @@ function* fetchFavorites(action) {
   try {
     let response = yield axios.get('/api/favorite')
     yield console.log(response);
-    yield put({type: 'SET_FAVS', payload: response.data}) 
+    yield put({type: 'SET_FAVS', payload: response.data})
   } catch (error) {
     console.log('error with GET on fetchFavorites', error);
   }
@@ -48,10 +63,10 @@ function* postFavorite(action) {
     yield put({
       type: 'FETCH_FAVS'
     })
-    
+
   } catch(error) {
     console.log('error in POST fav', error);
-    
+
   }
 
 }
@@ -84,8 +99,8 @@ const favoriteReducer = (state = [], action) => {
   switch (action.type){
     case 'SET_FAVS':
       return action.payload;
-    default: 
-      return state; 
+    default:
+      return state;
   }
 }
 

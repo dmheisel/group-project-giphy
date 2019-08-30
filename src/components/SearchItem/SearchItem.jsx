@@ -8,6 +8,7 @@ import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 const styles = theme => ({
+	//used for styling page
 	image: {
 		height: '100%',
 		width: 'auto',
@@ -26,8 +27,10 @@ class SearchItem extends Component {
 	state = {
 		inFavs: false
 	};
+
 	componentDidMount() {
 		this.setState({
+			//checks if this gif is already in favorites and changes the state of infavs to true if so
 			inFavs:
 				this.props.favoritesList.findIndex(
 					gif => gif.img_link === this.props.gifObject.images.fixed_height.url
@@ -38,18 +41,25 @@ class SearchItem extends Component {
 	}
 
 	handleFavoriteClick = event => {
-		this.setState({ inFavs: !this.state.inFavs });
 		if (this.state.inFavs === false) {
+			//if this is not in favs, dispatch POST_FAV to add to favs
 			this.props.dispatch({
 				type: 'POST_FAV',
 				payload: this.props.gifObject.images.fixed_height.url
 			});
 		} else {
+			//if this IS in favs, gather ID from finding the object in the database, and remove it
+			let id = this.props.favoritesList.filter(
+				gif => gif.img_link === this.props.gifObject.images.fixed_height.url
+			)[0].id;
+			console.log(id)
 			this.props.dispatch({
 				type: 'REMOVE_FAV',
-				payload: this.props.gifObject.images.fixed_height.url
+				payload: id
 			});
 		}
+		this.setState({ inFavs: !this.state.inFavs });
+		//toggles state of inFavs
 	};
 
 	render() {
