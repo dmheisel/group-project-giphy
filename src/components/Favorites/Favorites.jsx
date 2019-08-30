@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from "@material-ui/core/Button";
 import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
+import FavoritesItem from '../FavoritesItem/FavoritesItem';
+
+
 class Favorites extends Component {
 
 componentDidMount(){
@@ -17,7 +20,7 @@ returnToSearch = () => {
 }
     render() {
         let images = this.props.reduxStore.favoriteReducer.map((object, index) => {
-          return (<div key={index}>  <img src={object.img_link} alt="gif item" /> </div>)
+          return (<FavoritesItem gifObject={object} key={index} />)
         })
         return (
           <div>
