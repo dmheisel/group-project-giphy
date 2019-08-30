@@ -12,6 +12,7 @@ import { takeEvery, put } from 'redux-saga/effects'
 
 //SAGA stuff
 const sagaMiddleware = createSagaMiddleware()
+//this is our MASTER saga
 function* rootSaga() {
   yield takeEvery('REMOVE_FAV', removeFav)
   yield takeEvery('FETCH_SEARCH', fetchSearch);
@@ -21,7 +22,7 @@ function* rootSaga() {
   yield takeEvery('PUT_CAT', putCategory)
 }
 
-//remove route
+//remove route for Favorite (unstar)
 function* removeFav(action) {
   try {
     yield axios.delete(`/api/favorite/${action.payload}`)
@@ -35,7 +36,7 @@ function* removeFav(action) {
 }
 
 
-//fetch route
+//fetch route for GET to Giphy
 function* fetchSearch(action) {
   try {
     let response = yield axios.post('/api/search/', action.payload)
@@ -46,6 +47,7 @@ function* fetchSearch(action) {
   }
 }
 
+//fetch favorites for favs page
 function* fetchFavorites(action) {
   try {
     let response = yield axios.get('/api/favorite')
@@ -56,7 +58,7 @@ function* fetchFavorites(action) {
   }
 }
 
-//post favorite
+//post favorite - star a search item to put it on your favorites page
 function* postFavorite(action) {
   try {
     console.log('in postFavorite', action.payload);
@@ -67,11 +69,10 @@ function* postFavorite(action) {
 
   } catch(error) {
     console.log('error in POST fav', error);
-
   }
-
 }
 
+//get all categories for the category selector on the favorites page
 function* fetchCategory(action){
   try{
    let response = yield axios.get('/api/category')
@@ -82,10 +83,10 @@ function* fetchCategory(action){
     })
   }catch (err){
       console.log(err);
-
   }
 }
 
+//PUT request to update a category of a favorited item
 function* putCategory(action) {
   try{
     console.log('in postCategory', action.payload);
@@ -93,13 +94,16 @@ function* putCategory(action) {
     yield put({
       type: 'FETCH_FAVS'
     })
-
   } catch (error) {
     console.log('error in POST fav', error);
-
   }
 }
+
+
+
 //REDUX REDUCERS
+
+//SEARCH REDUCER
 const searchReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_SEARCH_RESULTS':
@@ -119,6 +123,7 @@ const favoriteReducer = (state = [], action) => {
   }
 }
 
+//CATEGORY REDUCER
 const categoryReducer = ( state = [], action) => {
   switch (action.type){
     case 'SET_CATEGORY':
@@ -128,6 +133,7 @@ const categoryReducer = ( state = [], action) => {
   }
 }
 
+//store and combine reducers. apply middleware (sagas, logger)
 const store = createStore(
   combineReducers({searchReducer, favoriteReducer, categoryReducer}),
   applyMiddleware(sagaMiddleware, logger)
