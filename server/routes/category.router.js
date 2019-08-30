@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
+router.put('/', (req, res) => {
     let categoryId = req.body;
     console.log('new category id', categoryId);
 
