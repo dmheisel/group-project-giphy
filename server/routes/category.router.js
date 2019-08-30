@@ -17,13 +17,12 @@ router.get('/', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-    let categoryId = req.body;
-    console.log('new category id', categoryId);
+    let updatedFavorite = req.body;
+    console.log('new category id', updatedFavorite);
 
     let queryText =
-        `INSERT INTO "favorites" ("category_id")
-              VALUES ($1);`;
-    pool.query(queryText, [categoryId.id])
+        `UPDATE "favorites" SET "category_id" = $1 WHERE "id" = $2`;
+    pool.query(queryText, [updatedFavorite.categoryID, updatedFavorite.gifID])
         .then(results => {
             res.sendStatus(200);
         })
