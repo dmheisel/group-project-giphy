@@ -82,14 +82,14 @@ function* fetchCategory(action){
     })
   }catch (err){
       console.log(err);
-      
+
   }
 }
 
 function* putCategory(action) {
   try{
     console.log('in postCategory', action.payload);
-    yield axios.put('/api/category', { id: action.payload })
+    yield axios.put('/api/category',  action.payload )
     yield put({
       type: 'FETCH_FAVS'
     })
@@ -124,7 +124,7 @@ const categoryReducer = ( state = [], action) => {
     case 'SET_CATEGORY':
       return action.payload;
     default:
-      return state; 
+      return state;
   }
 }
 
