@@ -16,4 +16,23 @@ router.get('/', (req, res) => {
         });
 });
 
+router.put('/', (req, res) => {
+    let categoryId = req.body;
+    console.log('new category id', categoryId);
+
+    let queryText =
+        `INSERT INTO "favorites" ("category_id")
+              VALUES ($1);`;
+    pool.query(queryText, [categoryId.id])
+        .then(results => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('error adding new ID', error);
+            res.sendStatus(500);
+        })
+
+
+});
+
 module.exports = router;

@@ -18,6 +18,7 @@ function* rootSaga() {
   yield takeEvery('FETCH_FAVS', fetchFavorites);
   yield takeEvery('POST_FAV', postFavorite);
   yield takeEvery('SET_CAT', fetchCategory)
+  yield takeEvery('PUT_CAT', putCategory)
 }
 
 //remove route
@@ -82,6 +83,20 @@ function* fetchCategory(action){
   }catch (err){
       console.log(err);
       
+  }
+}
+
+function* putCategory(action) {
+  try{
+    console.log('in postCategory', action.payload);
+    yield axios.put('/api/category', { id: action.payload })
+    yield put({
+      type: 'FETCH_FAVS'
+    })
+
+  } catch (error) {
+    console.log('error in POST fav', error);
+
   }
 }
 //REDUX REDUCERS
