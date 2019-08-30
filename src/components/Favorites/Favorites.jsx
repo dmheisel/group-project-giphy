@@ -22,7 +22,7 @@ class Favorites extends Component {
 		//returns a list with every gif with NULL as a category ID
 		let noCategoryList = (
 			<div>
-				<h3>Untagged Gifs</h3>
+				<h1>Untagged Gifs</h1>
 				{this.props.favorites
 					.filter(gif => gif.category_id === null)
 					.map(gif => {
@@ -45,7 +45,7 @@ class Favorites extends Component {
 			//return each this for each category
 			return (
 				<div key={index}>
-					<h3>{category.name}</h3>
+					<h1>{category.name.toUpperCase()}</h1>
 					{categoryGifs}
 				</div>
 			);

@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 
+
+// styling for the search page 
 const styles = theme => ({
 	root: {
 		display: 'flex',
@@ -23,14 +25,18 @@ const styles = theme => ({
 });
 
 class Search extends Component {
+
+	// the item that will be searched for 
 	state = {
 		search: ''
     };
 
+	//brings you to the favorites page
     toFavorites = () => {
         this.props.history.push('/favorites')
     }
 
+	// changes the value of state
     handleChange = (event) => {
         console.log('typing in input!');
         this.setState({
@@ -39,10 +45,12 @@ class Search extends Component {
 		}
 	
 
+		// goes to GET the favorite gifs from the data base
 	componentDidMount() {
 		this.props.dispatch({type: 'FETCH_FAVS'})
 	}
 
+	//dispatched the state to saga to be sent to the server to find GIFS
 	newSearch = event => {
 		event.preventDefault();
 		console.log('clicked on Submit!!', this.state);
@@ -56,6 +64,8 @@ class Search extends Component {
 	};
 
 	render() {
+
+		// displays the GIFS that the GET brings back
 		let images = this.props.reduxStore.searchReducer.map((object, index) => {
 			return (
 				<GridListTile key={index} cols={1} rows={1}>
