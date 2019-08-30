@@ -1,4 +1,3 @@
-
 CREATE DATABASE "giphy_search_favorites";
 -- You'll need a table for storing each giphy image favorite
 -- Each favorite image can be assigned 1 of the following categories as a Foreign Key
@@ -11,14 +10,15 @@ CREATE TABLE "category"
 -- Default categories. You may change them :slightly_smiling_face:
 INSERT INTO "category"
     ("name")
-VALUES
+VALUES          --WE ADDED polybius and oregon, goat, burrito, orca, organs to the main database.
     ('funny'),
     ('polybius'),
     ('oregon'),
     ('goat'),
     ('burrito'),
     ('orca'),
-    ('organs');
+    ('organs'),
+    ('cats');   -- ADDED cats catEgory as its essential to all databases.
 CREATE TABLE "favorites"
 (
     "id" SERIAL PRIMARY KEY,
