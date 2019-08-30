@@ -106,6 +106,8 @@ function* putCategory(action) {
 //SEARCH REDUCER
 const searchReducer = (state = [], action) => {
   switch (action.type) {
+    case 'FETCH_SEARCH':
+      return [];
     case 'SET_SEARCH_RESULTS':
       return action.payload;
     default:
